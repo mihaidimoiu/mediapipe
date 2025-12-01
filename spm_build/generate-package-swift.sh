@@ -53,8 +53,6 @@ COMMON_CHECKSUM=$(get_checksum "MediaPipeTasksCommon")
 VISION_CHECKSUM=$(get_checksum "MediaPipeTasksVision")
 TEXT_CHECKSUM=$(get_checksum "MediaPipeTasksText")
 AUDIO_CHECKSUM=$(get_checksum "MediaPipeTasksAudio")
-GENAI_CHECKSUM=$(get_checksum "MediaPipeTasksGenAI")
-GENAIC_CHECKSUM=$(get_checksum "MediaPipeTasksGenAIC")
 
 # Validate checksums
 if [[ "$COMMON_CHECKSUM" == "CHECKSUM_NOT_FOUND" ]]; then
@@ -92,9 +90,6 @@ let package = Package(
         .library(
             name: "MediaPipeTasksAudio",
             targets: ["MediaPipeTasksAudio"]),
-        .library(
-            name: "MediaPipeTasksGenAI",
-            targets: ["MediaPipeTasksGenAI"]),
     ],
     targets: [
         // MediaPipeTasksCommon - Base framework
@@ -146,13 +141,6 @@ let package = Package(
             name: "MediaPipeTasksAudio",
             url: "https://github.com/${GITHUB_REPO}/releases/download/v${MPP_BUILD_VERSION}/MediaPipeTasksAudio.xcframework.zip",
             checksum: "${AUDIO_CHECKSUM}"
-        ),
-
-        // MediaPipeTasksGenAI - Generative AI task APIs
-        .binaryTarget(
-            name: "MediaPipeTasksGenAI",
-            url: "https://github.com/${GITHUB_REPO}/releases/download/v${MPP_BUILD_VERSION}/MediaPipeTasksGenAI.xcframework.zip",
-            checksum: "${GENAI_CHECKSUM}"
         ),
     ]
 )

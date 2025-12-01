@@ -22,9 +22,6 @@ let package = Package(
         .library(
             name: "MediaPipeTasksAudio",
             targets: ["MediaPipeTasksAudio"]),
-        .library(
-            name: "MediaPipeTasksGenAI",
-            targets: ["MediaPipeTasksGenAI"]),
     ],
     targets: [
         // MediaPipeTasksCommon - Base framework
@@ -32,7 +29,7 @@ let package = Package(
         .binaryTarget(
             name: "MediaPipeTasksCommon",
             url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.26/MediaPipeTasksCommon.xcframework.zip",
-            checksum: "81939b6aa6e4e04c4541ff5aa7f7e76ca1334912406bdefa880ed1cf712932f7"
+            checksum: "2821eef06df0f9201f7c8ab606a0c6cd373b0cd42e095f79659b9f4a4f5aa4b5"
         ),
 
         // Wrapper target for MediaPipeTasksCommon to add system framework dependencies
@@ -59,7 +56,7 @@ let package = Package(
         .binaryTarget(
             name: "MediaPipeTasksVision",
             url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.26/MediaPipeTasksVision.xcframework.zip",
-            checksum: "5a05b6cf44136dbae1f5a915fa889a2196b6badfbef745d2841fff8cf61a0474"
+            checksum: "70624540f66c2338118d400d069fa72c17df6448947a36d4d7cc5a4f14ffc3c1"
         ),
 
         // MediaPipeTasksText - Text task APIs
@@ -67,7 +64,7 @@ let package = Package(
         .binaryTarget(
             name: "MediaPipeTasksText",
             url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.26/MediaPipeTasksText.xcframework.zip",
-            checksum: "7abbb65b349ae993ac5c388cf6d36226f1f04eaa374de63e3c52d2e28863c8d9"
+            checksum: "f3fa18fa7803e66f6750f1481a0fa5045eb5220ec781172d89024e0d11fe1633"
         ),
 
         // MediaPipeTasksAudio - Audio task APIs
@@ -75,14 +72,7 @@ let package = Package(
         .binaryTarget(
             name: "MediaPipeTasksAudio",
             url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.26/MediaPipeTasksAudio.xcframework.zip",
-            checksum: "87c8f7339529bc02458650930a29ac45423c3489c910bb72e292d31a3679b5de"
-        ),
-
-        // MediaPipeTasksGenAI - Generative AI task APIs
-        .binaryTarget(
-            name: "MediaPipeTasksGenAI",
-            url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.26/MediaPipeTasksGenAI.xcframework.zip",
-            checksum: "CHECKSUM_NOT_FOUND"
+            checksum: "2ac228c8fee84a21b5b5933318491954762ce5af4c0185518a80010e88c4306c"
         ),
     ]
 )
