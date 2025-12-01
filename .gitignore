@@ -8,8 +8,8 @@ node_modules/
 .build
 
 # SPM build outputs
-spm_build/output/
-spm_build/.build
+spm/output/
+spm/.build
 
 # Temporary build artifacts
 *.xcarchive

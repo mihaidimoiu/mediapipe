@@ -4,7 +4,7 @@ set -e
 
 # Configuration
 MPP_BUILD_VERSION="${MPP_BUILD_VERSION:-0.10.26}"
-SPM_OUTPUT_DIR="${SPM_OUTPUT_DIR:-./spm_build/output}"
+SPM_OUTPUT_DIR="${SPM_OUTPUT_DIR:-./spm/output}"
 GITHUB_REPO="${GITHUB_REPO:-mihaidimoiu/mediapipe}"
 
 # Colors
@@ -14,8 +14,8 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 echo -e "${GREEN}╔════════════════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║   MediaPipe GitHub Release Uploader               ║${NC}"
-echo -e "${GREEN}║   Version: ${MPP_BUILD_VERSION}                              ║${NC}"
+echo -e "${GREEN}║   MediaPipe GitHub Release Uploader                ║${NC}"
+echo -e "${GREEN}║   Version: ${MPP_BUILD_VERSION}                    ║${NC}"
 echo -e "${GREEN}╚════════════════════════════════════════════════════╝${NC}"
 echo ""
 
@@ -40,7 +40,7 @@ fi
 # Check if archives exist
 if [ ! -d "$SPM_OUTPUT_DIR/archives" ]; then
     echo -e "${RED}❌ Archives directory not found: $SPM_OUTPUT_DIR/archives${NC}"
-    echo "Run ./spm_build/build.sh first"
+    echo "Run ./spm/build.sh first"
     exit 1
 fi
 
@@ -50,7 +50,7 @@ SPM_OUTPUT_DIR="$(cd "$SPM_OUTPUT_DIR" && pwd)"
 archive_count=$(ls -1 "$SPM_OUTPUT_DIR/archives"/*.zip 2>/dev/null | wc -l)
 if [ "$archive_count" -eq 0 ]; then
     echo -e "${RED}❌ No archives found in $SPM_OUTPUT_DIR/archives${NC}"
-    echo "Run ./spm_build/build.sh first"
+    echo "Run ./spm/build.sh first"
     exit 1
 fi
 

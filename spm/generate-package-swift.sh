@@ -4,7 +4,7 @@ set -e
 
 # Configuration
 MPP_BUILD_VERSION="${MPP_BUILD_VERSION:-0.10.26}"
-SPM_OUTPUT_DIR="${SPM_OUTPUT_DIR:-./spm_build/output}"
+SPM_OUTPUT_DIR="${SPM_OUTPUT_DIR:-./spm/output}"
 GITHUB_REPO="${GITHUB_REPO:-mihaidimoiu/mediapipe}"
 PACKAGE_SWIFT_PATH="${PACKAGE_SWIFT_PATH:-./Package.swift}"
 
@@ -27,7 +27,7 @@ cd "$MPP_ROOT_DIR"
 CHECKSUMS_DIR="$SPM_OUTPUT_DIR/checksums"
 if [ ! -d "$CHECKSUMS_DIR" ]; then
     echo -e "${RED}❌ Checksums directory not found: $CHECKSUMS_DIR${NC}"
-    echo "Run ./spm_build/build.sh first"
+    echo "Run ./spm/build.sh first"
     exit 1
 fi
 

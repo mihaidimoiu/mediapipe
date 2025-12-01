@@ -8,7 +8,7 @@ GITHUB_REPO="${GITHUB_REPO:-mihaidimoiu/mediapipe}"
 # Use /tmp by default to avoid repo-root restriction in build_ios_framework.sh
 # The original build script doesn't allow DEST_DIR under the repo root
 DEST_DIR="${DEST_DIR:-/tmp/mpp-frameworks-build}"
-SPM_OUTPUT_DIR="${SPM_OUTPUT_DIR:-./spm_build/output}"
+SPM_OUTPUT_DIR="${SPM_OUTPUT_DIR:-./spm/output}"
 # Note: GenAI/GenAIC frameworks currently incomplete for iOS (missing llm_inference_engine_ios.h/cc)
 # FRAMEWORKS=("MediaPipeTasksCommon" "MediaPipeTasksVision" "MediaPipeTasksText" "MediaPipeTasksAudio" "MediaPipeTasksGenAIC" "MediaPipeTasksGenAI")
 FRAMEWORKS=("MediaPipeTasksCommon" "MediaPipeTasksVision" "MediaPipeTasksText" "MediaPipeTasksAudio")
