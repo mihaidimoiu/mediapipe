@@ -92,7 +92,6 @@ create_spm_archive() {
 
         # Add Info.plist files to framework bundles (required by Xcode)
         echo "  Adding Info.plist files..."
-        chmod +x ./spm/add_info_plists.sh
         ./spm/add_info_plists.sh \
             "$temp_extract_dir/frameworks/${framework_name}.xcframework" \
             "$framework_name" \

@@ -1,0 +1,11 @@
+# SPM: Export only necessary files for Swift Package
+# This reduces what gets cloned when adding as SPM dependency
+
+# Exclude everything by default from SPM
+* export-ignore
+
+# Include only what SPM needs
+!Package.swift export
+!Sources/** export
+!README.md export
+!LICENSE export
