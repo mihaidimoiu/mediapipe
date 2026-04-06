@@ -3,9 +3,9 @@
 set -e
 
 # Configuration
-MPP_BUILD_VERSION="${MPP_BUILD_VERSION:-0.10.32}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "$SCRIPT_DIR/config.sh"
 SPM_OUTPUT_DIR="${SPM_OUTPUT_DIR:-./spm/output}"
-GITHUB_REPO="${GITHUB_REPO:-mihaidimoiu/mediapipe}"
 
 # Colors
 RED='\033[0;31m'
