@@ -28,8 +28,8 @@ let package = Package(
         // Contains core functionality shared across all task types
         .binaryTarget(
             name: "MediaPipeTasksCommon",
-            url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.32/MediaPipeTasksCommon.xcframework.zip",
-            checksum: "cff97e8f625f5b3bbf94715713045ba517ac0a6a56b1461e7d33093244950ffa"
+            url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.33/MediaPipeTasksCommon.xcframework.zip",
+            checksum: "3cd38e4e5d7bcc043de8eeeeb835a9eb298694d7f6f00b0e1ea54b27b54ff501"
         ),
 
         // Wrapper target for MediaPipeTasksCommon to add system framework dependencies
@@ -55,24 +55,24 @@ let package = Package(
         // Includes: object detection, image classification, face detection, etc.
         .binaryTarget(
             name: "MediaPipeTasksVision",
-            url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.32/MediaPipeTasksVision.xcframework.zip",
-            checksum: "19de82c095fff446e7b0dd9e07f88b726c6ec7eff6b38efd5e8f922b19e6b4c2"
+            url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.33/MediaPipeTasksVision.xcframework.zip",
+            checksum: "2adc5a693cc025fd66600ed1e3c1bf1ec6c665409811f73064229821bc1e7d9f"
         ),
 
         // MediaPipeTasksText - Text task APIs
         // Includes: text classification, text embedding, etc.
         .binaryTarget(
             name: "MediaPipeTasksText",
-            url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.32/MediaPipeTasksText.xcframework.zip",
-            checksum: "8d1a387ece43962c8bd5aa7d3e3d746cc7bd1f7a270ce84a1b39944e1afad11d"
+            url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.33/MediaPipeTasksText.xcframework.zip",
+            checksum: "0f1f96bda7a148e689c82d50cee553f1318c8bafdc657540c06eb6e992111929"
         ),
 
         // MediaPipeTasksAudio - Audio task APIs
         // Includes: audio classification, etc.
         .binaryTarget(
             name: "MediaPipeTasksAudio",
-            url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.32/MediaPipeTasksAudio.xcframework.zip",
-            checksum: "0effb338cb4c069b0e35e2aaf07c6d5345bf5e0a99dc681d35fdd26547d87d11"
+            url: "https://github.com/mihaidimoiu/mediapipe/releases/download/v0.10.33/MediaPipeTasksAudio.xcframework.zip",
+            checksum: "15d6b4ef4ac691be77461a85cd595388898063b4a02c45b5fb2594ed4d25f53e"
         ),
     ]
 )
