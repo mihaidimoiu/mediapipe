@@ -9,8 +9,6 @@ source "$SCRIPT_DIR/config.sh"
 # The original build script doesn't allow DEST_DIR under the repo root
 DEST_DIR="${DEST_DIR:-/tmp/mpp-frameworks-build}"
 SPM_OUTPUT_DIR="${SPM_OUTPUT_DIR:-./spm/output}"
-# Note: GenAI/GenAIC frameworks currently incomplete for iOS (missing llm_inference_engine_ios.h/cc)
-# FRAMEWORKS=("MediaPipeTasksCommon" "MediaPipeTasksVision" "MediaPipeTasksText" "MediaPipeTasksAudio" "MediaPipeTasksGenAIC" "MediaPipeTasksGenAI")
 FRAMEWORKS=("MediaPipeTasksCommon" "MediaPipeTasksVision" "MediaPipeTasksText" "MediaPipeTasksAudio")
 
 # Colors for output
@@ -176,6 +174,15 @@ echo ""
 for framework in "${FRAMEWORKS[@]}"; do
     create_spm_archive "$framework"
 done
+
+# Download prebuilt GenAI/GenAIC frameworks from Google's CDN
+echo ""
+echo -e "${GREEN}╔════════════════════════════════════════════════════╗${NC}"
+echo -e "${GREEN}║   Downloading GenAI/GenAIC Prebuilt Frameworks     ║${NC}"
+echo -e "${GREEN}╚════════════════════════════════════════════════════╝${NC}"
+echo ""
+
+SPM_OUTPUT_DIR="$SPM_OUTPUT_DIR" ./spm/download-genai.sh
 
 echo ""
 echo -e "${GREEN}╔════════════════════════════════════════════════════╗${NC}"

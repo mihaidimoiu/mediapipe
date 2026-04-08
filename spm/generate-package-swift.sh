@@ -53,6 +53,8 @@ COMMON_CHECKSUM=$(get_checksum "MediaPipeTasksCommon")
 VISION_CHECKSUM=$(get_checksum "MediaPipeTasksVision")
 TEXT_CHECKSUM=$(get_checksum "MediaPipeTasksText")
 AUDIO_CHECKSUM=$(get_checksum "MediaPipeTasksAudio")
+GENAI_CHECKSUM=$(get_checksum "MediaPipeTasksGenAI")
+GENAIC_CHECKSUM=$(get_checksum "MediaPipeTasksGenAIC")
 
 # Validate checksums
 if [[ "$COMMON_CHECKSUM" == "CHECKSUM_NOT_FOUND" ]]; then
@@ -60,9 +62,60 @@ if [[ "$COMMON_CHECKSUM" == "CHECKSUM_NOT_FOUND" ]]; then
     exit 1
 fi
 
+if [[ "$GENAI_CHECKSUM" == "CHECKSUM_NOT_FOUND" ]] || [[ "$GENAIC_CHECKSUM" == "CHECKSUM_NOT_FOUND" ]]; then
+    echo -e "${YELLOW}⚠️  GenAI/GenAIC checksums not found — they will be excluded from Package.swift${NC}"
+    INCLUDE_GENAI=false
+else
+    INCLUDE_GENAI=true
+fi
+
 echo -e "${GREEN}✅ All checksums loaded${NC}"
 echo ""
 echo -e "${YELLOW}📝 Generating Package.swift...${NC}"
+
+# Build the GenAI products and targets blocks conditionally
+if [[ "$INCLUDE_GENAI" == true ]]; then
+    GENAI_PRODUCTS="
+        .library(
+            name: \"MediaPipeTasksGenAI\",
+            targets: [\"MediaPipeTasksGenAI\"]),
+        .library(
+            name: \"MediaPipeTasksGenAIC\",
+            targets: [\"MediaPipeTasksGenAIC\", \"MediaPipeTasksGenAICWrapper\"]),"
+    GENAI_TARGETS="
+
+        // MediaPipeTasksGenAI - Generative AI APIs (prebuilt, source not open)
+        // Includes: LLM inference (deprecated in favor of LiteRT-LM)
+        .binaryTarget(
+            name: \"MediaPipeTasksGenAI\",
+            url: \"https://github.com/${GITHUB_REPO}/releases/download/v${MPP_BUILD_VERSION}/MediaPipeTasksGenAI.xcframework.zip\",
+            checksum: \"${GENAI_CHECKSUM}\"
+        ),
+
+        // MediaPipeTasksGenAIC - Generative AI C API (prebuilt, source not open)
+        .binaryTarget(
+            name: \"MediaPipeTasksGenAIC\",
+            url: \"https://github.com/${GITHUB_REPO}/releases/download/v${MPP_BUILD_VERSION}/MediaPipeTasksGenAIC.xcframework.zip\",
+            checksum: \"${GENAIC_CHECKSUM}\"
+        ),
+
+        // Wrapper target for MediaPipeTasksGenAIC to add system framework and force_load dependencies
+        .target(
+            name: \"MediaPipeTasksGenAICWrapper\",
+            dependencies: [\"MediaPipeTasksGenAIC\"],
+            path: \"Sources/MediaPipeTasksGenAICWrapper\",
+            linkerSettings: [
+                .linkedFramework(\"Accelerate\"),
+                .linkedFramework(\"CoreVideo\"),
+                .linkedFramework(\"Metal\"),
+                .linkedFramework(\"OpenGLES\"),
+                .linkedLibrary(\"c++\")
+            ]
+        ),"
+else
+    GENAI_PRODUCTS=""
+    GENAI_TARGETS=""
+fi
 
 # Generate Package.swift
 cat > "$PACKAGE_SWIFT_PATH" << EOF
@@ -89,7 +142,7 @@ let package = Package(
             targets: ["MediaPipeTasksText"]),
         .library(
             name: "MediaPipeTasksAudio",
-            targets: ["MediaPipeTasksAudio"]),
+            targets: ["MediaPipeTasksAudio"]),${GENAI_PRODUCTS}
     ],
     targets: [
         // MediaPipeTasksCommon - Base framework
@@ -141,7 +194,7 @@ let package = Package(
             name: "MediaPipeTasksAudio",
             url: "https://github.com/${GITHUB_REPO}/releases/download/v${MPP_BUILD_VERSION}/MediaPipeTasksAudio.xcframework.zip",
             checksum: "${AUDIO_CHECKSUM}"
-        ),
+        ),${GENAI_TARGETS}
     ]
 )
 EOF
@@ -149,7 +202,7 @@ EOF
 echo -e "${GREEN}✅ Package.swift generated at: $PACKAGE_SWIFT_PATH${NC}"
 echo ""
 
-# Create wrapper source file if it doesn't exist
+# Create wrapper source files if they don't exist
 WRAPPER_DIR="Sources/MediaPipeTasksCommonWrapper"
 mkdir -p "$WRAPPER_DIR"
 
@@ -161,6 +214,21 @@ if [ ! -f "$WRAPPER_DIR/dummy.swift" ]; then
 // This wrapper exists solely to attach linker settings for system frameworks.
 EOF
     echo -e "${GREEN}✅ Created $WRAPPER_DIR/dummy.swift${NC}"
+fi
+
+if [[ "$INCLUDE_GENAI" == true ]]; then
+    GENAIC_WRAPPER_DIR="Sources/MediaPipeTasksGenAICWrapper"
+    mkdir -p "$GENAIC_WRAPPER_DIR"
+
+    if [ ! -f "$GENAIC_WRAPPER_DIR/dummy.swift" ]; then
+        echo -e "${YELLOW}📝 Creating GenAIC wrapper dummy file...${NC}"
+        cat > "$GENAIC_WRAPPER_DIR/dummy.swift" << 'EOF'
+// This file is required for SPM to recognize this as a valid target.
+// The actual functionality is provided by the MediaPipeTasksGenAIC binary target.
+// This wrapper exists solely to attach linker settings for system frameworks.
+EOF
+        echo -e "${GREEN}✅ Created $GENAIC_WRAPPER_DIR/dummy.swift${NC}"
+    fi
 fi
 
 echo ""

@@ -86,6 +86,8 @@ This release includes XCFrameworks for Swift Package Manager distribution.
 - MediaPipeTasksVision
 - MediaPipeTasksText
 - MediaPipeTasksAudio
+- MediaPipeTasksGenAI (prebuilt from CocoaPods)
+- MediaPipeTasksGenAIC (prebuilt from CocoaPods)
 
 ### Installation
 
